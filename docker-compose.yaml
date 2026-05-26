@@ -1,0 +1,88 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: my-api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+    #  - /app/node_modules
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:haslo@db:5432/db_admin
+      JWT_SECRET: super-tajny-klucz
+    networks:
+      - app-network
+
+  db:
+    image: postgres:17
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: haslo
+      POSTGRES_DB: db_admin
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db_init:/docker-entrypoint-initdb.d
+
+    networks:
+      - app-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pg-admin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  # rabbitmq:
+  #   image: rabbitmq:3-management
+  #   container_name: rabbitmq
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672"
+  #   environment:
+  #     RABBITMQ_DEFAULT_USER: guest
+  #     RABBITMQ_DEFAULT_PASS: guest
+  #   networks:
+  #     - app-network
+  
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: my-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - api
+    environment:
+      VITE_API_URL: http://api:3000
+    networks:
+      - app-network
+
+
+
+  
+
+networks:
+  app-network:
+
+volumes:
+  pgdata:

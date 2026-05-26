@@ -1,0 +1,109 @@
+.flex-row-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#login-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#login-page > form {
+  border: 1px solid var(--color4);
+  padding: 3em;
+  border-radius: 1em;
+  background-color: var(--color1);
+  width: 350px;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1.2em;
+}
+
+input {
+  width: 100%;
+  height: 2.5em;
+  border-radius: 1em;
+  border: 1px solid gray;
+  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+  padding-left: 1em;
+}
+
+button {
+  background-color: var(--color3) !important;
+  color: var(--color5) !important;
+  width: 100%;
+  height: 3em;
+  border-radius: 1em;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.03);
+}
+
+.register-button {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  width: 100%;
+  height: 3em;
+  background-color: var(--color3) !important;
+  color: var(--color5) !important;
+  text-decoration: none;
+  border-radius: 1em;
+  font-weight: bold;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.register-button:hover {
+  transform: scale(1.03);
+}
+
+.form-control {
+  width: 100%;
+  position: relative;
+}
+
+.form-control > input {
+  padding-left: 2.5em;
+}
+
+.form-control > i {
+  font-weight: 900;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 2.5em;
+  width: 2.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  #login-page > form {
+    width: 90%;
+  }
+}

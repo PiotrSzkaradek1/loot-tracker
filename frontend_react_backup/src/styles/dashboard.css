@@ -1,0 +1,115 @@
+section > a {
+  all: unset;
+  display: inline-block !important;
+  cursor: pointer;
+}
+
+nav {
+    background-color: var(--color2);
+    height: 120px;
+}
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--color1);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.logout-btn:hover {
+    background: var(--color4);
+}
+
+
+.desktop-icons li span{
+    font-size: 22px;
+}
+
+.desktop-icons li:hover{
+    transform: none !important;
+}
+
+aside, section {
+    padding: 1em;
+}
+
+.card {
+    position: relative;
+    width: 250px;
+    background-color: var(--color2);
+    border-radius: 1em;
+        box-shadow: rgb(0 0 0 / 34%) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+.card-link {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 10;
+}
+
+.card > p {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--color1);
+}
+
+.card > img {
+    width: 100%;
+    border-radius: 1em 1em 0 0;
+}
+
+.card:hover{
+     transform: scale(1.05);
+}
+
+
+
+main {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+.show-element{
+    display: flex !important;
+}
+
+.mobile-icons {
+    display: none;
+}
+
+
+@media (max-width: 600px){
+    main {
+        grid-template-columns: 1fr;
+    }
+
+    .mobile-icons{
+        display: flex;
+    }
+
+    .desktop-icons{
+            display: none;
+            position: fixed;
+            top: 120px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--color2);
+            margin: 0;
+            opacity: 0.9;
+            width: 70%;
+        }
+}

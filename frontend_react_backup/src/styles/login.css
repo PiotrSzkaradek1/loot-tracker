@@ -1,0 +1,176 @@
+:root {
+  --color1: #cccfe0;
+  --color2: #2e3440;
+  --color3: #272b35;
+  --color4: #1e2229;
+  --color5: #e5e9f0;
+}
+
+* {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.flex-row-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#login-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  background-color: var(--color4);
+  margin: 0;
+}
+
+button {
+  background-color: hotpink;
+  color: antiquewhite;
+}
+
+#login-page > div {
+  border: 1px solid var(--color4);
+  padding: 3em;
+  border-radius: 1em;
+  background-color: var(--color1);
+  width: 30%;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+}
+
+#login-page > div > form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1em;
+  width: 100%;
+  padding: 1em;
+}
+
+input {
+  width: 100%;
+  height: 1.5em;
+  border-radius: 1em;
+  width: 100%;
+  height: 2em;
+  border-radius: 1em;
+  border: 1px solid gray;
+  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+  padding-left: 1em;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: var(--color3);
+  color: var(--color5);
+  width: 100%;
+  height: 2.5em;
+  border-radius: 1em;
+  border: none;
+}
+
+button:hover {
+  transform: scale(1.03);
+  cursor: pointer;
+}
+
+.register-button {
+  display: inline-block;
+  margin-top: 1em;
+  padding: 0.7em 1.5em;
+  background-color: var(--color3);
+  color: var(--color5);
+  text-decoration: none;
+  border-radius: 0.5em;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+
+.register-button:hover {
+  transform: scale(1.05);
+}
+
+.form-control {
+  width: 100%;
+  position: relative;
+}
+
+.form-control > input {
+  padding-left: 2.5em;
+}
+
+.form-control > i {
+  font-weight: 900;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 2em;
+  width: 2.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav {
+  justify-content: space-between;
+}
+
+nav > ul {
+  width: 100%;
+  display: flex;
+  gap: 1.5em;
+  color: white;
+}
+
+nav > ul > li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+nav > ul > li:hover {
+  transform: scale(1.1);
+}
+
+nav > ul > li > i,
+nav > i {
+  font-size: 2.5em;
+}
+
+nav > ul + ul {
+  justify-content: flex-end;
+  margin-right: 1em;
+}
+
+.mobile-icons {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  #login-page > div {
+    width: 100%;
+  }
+  .mobile-icons {
+    display: flex;
+  }
+
+  .desktop-icons {
+    display: none;
+  }
+}

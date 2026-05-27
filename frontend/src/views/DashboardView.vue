@@ -13,7 +13,7 @@
         <p>Twój loot</p>
       </div>
     </section>
-    <aside></aside>
+    <!-- <aside></aside> -->
   </main>
 </template>
 

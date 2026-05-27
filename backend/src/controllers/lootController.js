@@ -1,16 +1,11 @@
 const db = require("../db");
 
-
 /* ================= GET DATA ================= */
-
 const getLootData = async (req, res) => {
-
   try {
-
     const userId = req.user.id;
 
     /* Ostatnia postać użytkownika */
-
     const charRes = await db.query(
       `
       SELECT *
@@ -28,43 +23,32 @@ const getLootData = async (req, res) => {
 
     const character = charRes.rows[0];
 
-
-    /* Boss (na razie losowy / pierwszy) */
-
-
+    /* Boss przekazany z frontendu */
     const bossId = req.query.bossId;
 
     if (!bossId) {
-    return res.status(400).json({
-        message: "Brak bossId"
-    });
+      return res.status(400).json({ message: "Brak bossId" });
     }
 
     const bossRes = await db.query(
-    `SELECT * FROM bosses WHERE id = $1`,
-    [bossId]
+      `SELECT * FROM bosses WHERE id = $1`,
+      [bossId]
     );
 
     if (!bossRes.rows.length) {
-    return res.status(404).json({
-        message: "Boss nie istnieje"
-    });
+      return res.status(404).json({ message: "Boss nie istnieje" });
     }
 
     const boss = bossRes.rows[0];
 
-
     /* Dane bossa */
-
     const bossData = {
       min_syng: boss.min_syng,
       max_syng: boss.max_syng,
       tier: boss.tier
     };
 
-
     /* Itemy bossa */
-
     const itemsRes = await db.query(
       `
       SELECT i.*
@@ -75,9 +59,7 @@ const getLootData = async (req, res) => {
       [boss.id]
     );
 
-
     /* Rary */
-
     const rarsRes = await db.query(
       `
       SELECT *
@@ -87,70 +69,62 @@ const getLootData = async (req, res) => {
       [boss.id]
     );
 
-
     /* Drify */
-
-    const drifsRes = await db.query(
-      `SELECT * FROM drifs`
-    );
-
+    const drifsRes = await db.query(`SELECT * FROM drifs`);
 
     res.json({
-
       boss,
       character,
-
       bossData,
-
       items: itemsRes.rows,
       rars: rarsRes.rows,
       drifs: drifsRes.rows
-
     });
 
-  }
-  catch (err) {
-
+  } catch (err) {
     console.error(err);
-
-    res.status(500).json({
-      message: "Błąd pobierania danych"
-    });
-
+    res.status(500).json({ message: "Błąd pobierania danych" });
   }
-
 };
 
 /* ================= SAVE ================= */
-
 const saveLoot = async (req, res) => {
   try {
     const userId = req.user.id;
-
     const { boss, character, gold, tracks, items, cart } = req.body;
 
     // Rozpocznij transakcję
     await db.query("BEGIN");
 
-    // RECORD
+    // 1. GLÓWNY REKORD (RECORDS)
     const recordRes = await db.query(
       `
       INSERT INTO records (character_id, boss_id, difficulty)
       VALUES ($1, $2, $3)
       RETURNING id
       `,
-      [character.id, boss.id, boss.difficulty || "normal"]
+      [character.id, boss.id, boss.difficulty || "Normal"]
     );
 
     const recordId = recordRes.rows[0].id;
 
-    // GOLD
-    await db.query(
-      `INSERT INTO record_gold (record_id, amount) VALUES ($1, $2)`,
-      [recordId, gold]
-    );
+    // 2. ZŁOTO (Zapisujemy tylko jeśli gracz coś zebrał)
+    if (gold > 0) {
+      await db.query(
+        `INSERT INTO record_gold (record_id, amount) VALUES ($1, $2)`,
+        [recordId, gold]
+      );
+    }
 
-    // ITEMS
+    // 3. TROPY (Zapis do nowej tabeli record_tracks)
+    if (tracks > 0) {
+      await db.query(
+        `INSERT INTO record_tracks (record_id, amount) VALUES ($1, $2)`,
+        [recordId, tracks]
+      );
+    }
+
+    // 4. PRZEDMIOTY ZWYKŁE (ITEMS)
     for (const itemId in items) {
       const amount = items[itemId];
       if (amount > 0) {
@@ -161,7 +135,7 @@ const saveLoot = async (req, res) => {
       }
     }
 
-    // CART (RARS / SYNG / DRIFS)
+    // 5. KOSZYK (RARY / SYNG / DRIFS)
     for (const el of cart) {
       if (el.type === "rar") {
         await db.query(
@@ -183,17 +157,16 @@ const saveLoot = async (req, res) => {
       }
     }
 
-    // Zatwierdzenie transakcji
+    // Zatwierdzenie całej transakcji w bazie danych
     await db.query("COMMIT");
 
     res.json({ message: "Loot zapisany", recordId });
   } catch (err) {
-    // Wycofanie transakcji w razie błędu
+    // Jeśli jakikolwiek INSERT się wyłoży, cofnięcie transakcji
     await db.query("ROLLBACK");
     console.error(err);
     res.status(500).json({ message: "Nie udało się zapisać loota" });
   }
 };
 
-
-module.exports = {getLootData, saveLoot}
+module.exports = { getLootData, saveLoot };

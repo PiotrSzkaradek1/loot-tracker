@@ -36,6 +36,11 @@ const router = createRouter({
       path: '/boss-selection',
       name: 'boss-selection',
       component: () => import('../views/BossSelectionView.vue')
+    },
+    {
+      path: '/looting',
+      name: 'looting',
+      component: () => import('../views/LootingView.vue')
     }
   ],
 })

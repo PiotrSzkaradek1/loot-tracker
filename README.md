@@ -32,7 +32,7 @@ Loot Tracker is a web application for tracking loot drops, characters, and bosse
 ## Running with docker (Recommended)
 
 1. Clone repository.
-git clone https://github.com/PiotrSzkaradek1/ztpai2025
+git clone https://github.com/PiotrSzkaradek1/loot-tracker
 cd ztpai
 
 2. Build and run containers

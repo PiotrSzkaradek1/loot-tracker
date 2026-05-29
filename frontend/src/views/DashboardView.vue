@@ -8,7 +8,7 @@
       </div>
 
       <div class="card">
-        <RouterLink to="/loot-history-selection" class="card-link" />
+        <RouterLink to="/stash" class="card-link" />
         <img src="@/assets/horseshoe.jpg" alt="Twój loot" />
         <p>Twój loot</p>
       </div>

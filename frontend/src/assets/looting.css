@@ -24,7 +24,7 @@ aside, section, .extra {
 
 main {
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-columns: 1fr 1fr 3fr;
     align-items: start;
 }
 
@@ -277,7 +277,202 @@ aside button:hover {
     max-width: 90%;
 }
 
+.difficulty-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  background: #252c3a;
+  padding: 6px 10px;
+  border-radius: 4px;
+  width: fit-content;
+  justify-content: center;
+  width: auto;
+}
 
+.difficulty-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.info-box {
+  background: #1a1f29;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px; 
+}
+
+.looting-layout {
+  display: grid;
+  grid-template-columns: 260px 220px 1fr;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.extra-boss-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #1e2530;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.main-form-panel {
+  background: #1a1f29;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.dungeon-img {
+  width: 100%;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+.boss-mini-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: #252c3a;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.boss-mini-card:hover, .boss-mini-card.active {
+  background: #3b485c;
+  border: 1px solid #4fcd8d;
+}
+
+.boss-mini-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.form-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.form-row label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.form-row input {
+  margin-top: 0.25rem;
+  padding: 0.4rem;
+  background: #252c3a;
+  border: 1px solid #3b485c;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.add-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.items-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.items-inputs label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #252c3a;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.items-inputs input {
+  width: 80px;
+  padding: 0.3rem;
+  background: #1a1f29;
+  border: 1px solid #3b485c;
+  color: #fff;
+  border-radius: 4px;
+  text-align: center;
+}
+
+#loot-cart {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+#loot-cart li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #252c3a;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+  border-left: 4px solid #4fcd8d;
+  border-radius: 0 4px 4px 0;
+}
+
+.btn-remove {
+  background: #e53e3e;
+  border: none;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  background: #4fcd8d;
+  color: #1a1f29;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1.5rem;
+}
+
+.submit-btn:hover {
+  background: #3db87a;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
 
 
 @media (max-width: 600px){

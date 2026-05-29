@@ -7,7 +7,8 @@ const charactersRouter = require("./routes/characters");
 const usersRouter = require("./routes/users");
 const lootRouter = require("./routes/loot");
 const historyRouter = require("./routes/history");
-const bossesRouter = require('./routes/bosses')
+const bossesRouter = require('./routes/bosses');
+const stashRouter = require('./routes/stash');
 
 const swaggerUI = require("swagger-ui-express");
 const swaggerSpec = require("./swagger");
@@ -25,6 +26,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/loot", lootRouter);
 app.use("/api/history", historyRouter);
 app.use("/api/bosses", bossesRouter)
+app.use("/api/stash", stashRouter);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
 const PORT = process.env.PORT || 3000;

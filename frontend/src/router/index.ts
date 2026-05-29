@@ -41,6 +41,11 @@ const router = createRouter({
       path: '/looting',
       name: 'looting',
       component: () => import('../views/LootingView.vue')
+    },
+        {
+      path: '/stash',
+      name: 'stash',
+      component: () => import('../views/StashView.vue')
     }
   ],
 })

@@ -4,86 +4,89 @@ const db = require("../db");
 const getLootData = async (req, res) => {
   try {
     const userId = req.user.id;
+    const { dungeonId } = req.query; // Odbieramy ?dungeonId=X z frontendu
 
-    /* Ostatnia postać użytkownika */
+    if (!dungeonId) {
+      return res.status(400).json({ message: "Brak parametru dungeonId" });
+    }
+
+    /* 1. Pobieramy ostatnią postać użytkownika */
     const charRes = await db.query(
-      `
-      SELECT *
-      FROM characters
-      WHERE user_id = $1
-      ORDER BY created_at DESC
-      LIMIT 1
-      `,
+      `SELECT * FROM characters WHERE user_id = $1 ORDER BY created_at DESC LIMIT 1`,
       [userId]
     );
-
     if (!charRes.rows.length) {
-      return res.status(400).json({ message: "Brak postaci" });
+      return res.status(400).json({ message: "Brak stworzonych postaci" });
     }
-
     const character = charRes.rows[0];
 
-    /* Boss przekazany z frontendu */
-    const bossId = req.query.bossId;
-
-    if (!bossId) {
-      return res.status(400).json({ message: "Brak bossId" });
-    }
-
-    const bossRes = await db.query(
-      `SELECT * FROM bosses WHERE id = $1`,
-      [bossId]
+    /* 2. Pobieramy dane wybranego dungeona */
+    const dungeonRes = await db.query(
+      `SELECT * FROM dungeons WHERE id = $1`,
+      [dungeonId]
     );
+    if (!dungeonRes.rows.length) {
+      return res.status(404).json({ message: "Dungeon nie istnieje" });
+    }
+    const dungeon = dungeonRes.rows[0];
 
-    if (!bossRes.rows.length) {
-      return res.status(404).json({ message: "Boss nie istnieje" });
+    /* 3. Pobieramy WSZYSTKICH bossów przypisanych do tego dungeona */
+    const bossesRes = await db.query(
+      `SELECT * FROM bosses WHERE dungeon_id = $1 ORDER BY id ASC`,
+      [dungeonId]
+    );
+    const bosses = bossesRes.rows;
+
+    // Jeśli dungeon jest pusty i nie ma bossów, zwracamy pustą strukturę
+    if (!bosses.length) {
+      return res.json({ character, dungeon, bosses: [], items: {}, rars: {}, drifs: [] });
     }
 
-    const boss = bossRes.rows[0];
+    // Wyciągamy tablicę ID wszystkich bossów z tego dungeona (np. [1, 2])
+    const bossIds = bosses.map(b => b.id);
 
-    /* Dane bossa */
-    const bossData = {
-      min_syng: boss.min_syng,
-      max_syng: boss.max_syng,
-      tier: boss.tier
-    };
-
-    /* Itemy bossa */
+    /* 4. Pobieramy przedmioty (items) dla wszystkich tych bossów na raz */
     const itemsRes = await db.query(
       `
-      SELECT i.*
+      SELECT i.*, bi.boss_id
       FROM items i
       JOIN boss_items bi ON i.id = bi.item_id
-      WHERE bi.boss_id = $1
+      WHERE bi.boss_id = ANY($1)
       `,
-      [boss.id]
+      [bossIds]
     );
 
-    /* Rary */
+    /* 5. Pobieramy rary dla wszystkich tych bossów na raz */
     const rarsRes = await db.query(
-      `
-      SELECT *
-      FROM rars
-      WHERE boss_id = $1
-      `,
-      [boss.id]
+      `SELECT * FROM rars WHERE boss_id = ANY($1)`,
+      [bossIds]
     );
 
-    /* Drify */
+    /* 6. Drify (są globalne dla całej gry) */
     const drifsRes = await db.query(`SELECT * FROM drifs`);
 
+    // Grupowanie przedmiotów i rarów po boss_id, żeby frontend miał super łatwo
+    const itemsByBoss = {};
+    const rarsByBoss = {};
+
+    bossIds.forEach(id => {
+      itemsByBoss[id] = itemsRes.rows.filter(item => item.boss_id === id);
+      rarsByBoss[id] = rarsRes.rows.filter(rar => rar.boss_id === id);
+    });
+
+    // Wysyłamy kompletną paczkę danych do LootingView
     res.json({
-      boss,
       character,
-      bossData,
-      items: itemsRes.rows,
-      rars: rarsRes.rows,
+      dungeon,
+      bosses,
+      items: itemsByBoss,
+      rars: rarsByBoss,
       drifs: drifsRes.rows
     });
 
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Błąd pobierania danych" });
+    console.error("Błąd w getLootData:", err);
+    res.status(500).json({ message: "Błąd pobierania danych dungeona" });
   }
 };
 

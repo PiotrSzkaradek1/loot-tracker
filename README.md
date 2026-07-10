@@ -33,7 +33,7 @@ Loot Tracker is a web application for tracking loot drops, characters, and bosse
 
 1. Clone repository.
 git clone https://github.com/PiotrSzkaradek1/loot-tracker
-cd ztpai
+cd loot-tracker
 
 2. Build and run containers
 For running application first time on your machine after cloning always use this (app may need up to few minutes to build):
@@ -46,14 +46,14 @@ Frontend: http://localhost:5137
 Backend: http://localhost:3000
 
 4. Running without docker
-Backend:
+- Backend:
 cd backend
-npm install
-npm start
+- npm install
+- npm start
 
-Frontend
-npm install
-npm run dev -- --host
+- Frontend
+- npm install
+- npm run dev -- --host
 
 5. Notes
 Make sure you have PostgreSQL running and configured if running backend without Docker.

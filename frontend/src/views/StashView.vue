@@ -125,10 +125,18 @@
         <p v-if="stats.items.length === 0" style="color: #888; font-size: 0.9rem; padding-left: 5px;">Brak odnotowanych dropów zwykłych przedmiotów</p>
         <div v-else class="items-inputs">
           <label v-for="item in stats.items" :key="item.item_id" style="cursor: default; padding: 0.6rem 0.8rem;">
-            <span>{{ item.name }}</span>
+            <div>
+              <span>{{ item.name }}</span>
+              <span v-if="item.price > 0" style="color: #ffd700; font-size: 0.8rem; margin-left: 10px; font-weight: bold;">
+                ({{ formatGoldValue(item.total_amount, item.price) }})
+              </span>
+            </div>
             <div style="text-align: right;">
               <span class="loot-type" style="display: block; font-size: 0.95rem;">x{{ item.total_amount }}</span>
-              <small style="color: #aaa; font-size: 0.75rem; font-weight: normal;">Śr. pod.: {{ calcAvg(item.total_amount) }}</small>
+              <small style="color: #aaa; font-size: 0.75rem; font-weight: normal;">
+                Śr. pod.: {{ calcAvg(item.total_amount) }}
+                <span v-if="item.price > 0" style="color: #ffd700; font-weight: bold;"> ({{ formatGoldAvg(item.total_amount, item.price) }}/inst.)</span>
+              </small>
             </div>
           </label>
         </div>
@@ -138,8 +146,16 @@
         <ul id="loot-cart" v-else>
           <li v-for="(rar, idx) in stats.rars" :key="idx" style="border-left: 4px solid #ffd700; padding: 0.6rem 0.8rem;">
             <div>
-              <span class="loot-type" style="display: block;">{{ rar.name }} (Jakość: {{ rar.quality }})</span>
-              <small style="color: #aaa; font-size: 0.75rem;">Szansa na podejście: {{ calcChance(rar.count) }}%</small>
+              <span class="loot-type" style="display: block;">
+                {{ rar.name }} (Jakość: {{ rar.quality }})
+                <span v-if="rar.price > 0" style="color: #ffd700; font-size: 0.85rem; font-weight: bold; margin-left: 8px;">
+                  ({{ formatGoldValue(rar.count, rar.price) }})
+                </span>
+              </span>
+              <small style="color: #aaa; font-size: 0.75rem;">
+                Szansa na podejście: {{ calcChance(rar.count) }}%
+                <span v-if="rar.price > 0" style="color: #ffd700; font-weight: bold;"> ({{ formatGoldAvg(rar.count, rar.price) }}/inst.)</span>
+              </small>
             </div>
             <span style="background: #1a1f29; padding: 4px 10px; border-radius: 4px; font-weight: bold;">
               x{{ rar.count }}
@@ -152,8 +168,16 @@
         <ul id="loot-cart" v-else>
           <li v-for="(syng, idx) in stats.synergetics" :key="idx" style="border-left: 4px solid #a855f7; padding: 0.6rem 0.8rem;">
             <div>
-              <span class="loot-type" style="display: block;">Synergetyk Klasowy (Jakość {{ syng.tier }})</span>
-              <small style="color: #aaa; font-size: 0.75rem;">Szansa na podejście: {{ calcChance(syng.count) }}%</small>
+              <span class="loot-type" style="display: block;">
+                Synergetyk Klasowy (Jakość {{ syng.tier }})
+                <span v-if="syng.price > 0" style="color: #ffd700; font-size: 0.85rem; font-weight: bold; margin-left: 8px;">
+                  ({{ formatGoldValue(syng.count, syng.price) }})
+                </span>
+              </span>
+              <small style="color: #aaa; font-size: 0.75rem;">
+                Szansa na podejście: {{ calcChance(syng.count) }}%
+                <span v-if="syng.price > 0" style="color: #ffd700; font-weight: bold;"> ({{ formatGoldAvg(syng.count, syng.price) }}/inst.)</span>
+              </small>
             </div>
             <span style="background: #1a1f29; padding: 4px 10px; border-radius: 4px; font-weight: bold;">
               x{{ syng.count }}
@@ -166,8 +190,16 @@
         <ul id="loot-cart" v-else>
           <li v-for="(drif, idx) in stats.drifs" :key="idx" style="border-left: 4px solid #3182ce; padding: 0.6rem 0.8rem;">
             <div>
-              <span class="loot-type" style="display: block;">Drif: {{ drif.name }} (Tier {{ drif.tier }})</span>
-              <small style="color: #aaa; font-size: 0.75rem;">Szansa na podejście: {{ calcChance(drif.count) }}%</small>
+              <span class="loot-type" style="display: block;">
+                Drif: {{ drif.name }} (Tier {{ drif.tier }})
+                <span v-if="drif.price > 0" style="color: #ffd700; font-size: 0.85rem; font-weight: bold; margin-left: 8px;">
+                  ({{ formatGoldValue(drif.count, drif.price) }})
+                </span>
+              </span>
+              <small style="color: #aaa; font-size: 0.75rem;">
+                Szansa na podejście: {{ calcChance(drif.count) }}%
+                <span v-if="drif.price > 0" style="color: #ffd700; font-weight: bold;"> ({{ formatGoldAvg(drif.count, drif.price) }}/inst.)</span>
+              </small>
             </div>
             <span style="background: #1a1f29; padding: 4px 10px; border-radius: 4px; font-weight: bold;">
               x{{ drif.count }}
@@ -194,10 +226,10 @@ interface Dungeon { id: number; name: string; has_easy: boolean; has_normal: boo
 
 interface StashStats {
   general: { total_kills: number; total_gold: number; total_tracks: number; };
-  items: Array<{ item_id: number; name: string; total_amount: number; }>;
-  rars: Array<{ rar_id: number; name: string; quality: number; count: number; }>;
-  synergetics: Array<{ tier: number; count: number; }>;
-  drifs: Array<{ drif_id: number; name: string; tier: number; count: number; }>;
+  items: Array<{ item_id: number; name: string; total_amount: number; price: number; }>;
+  rars: Array<{ rar_id: number; name: string; quality: number; count: number; price: number; }>;
+  synergetics: Array<{ tier: number; count: number; price: number; }>;
+  drifs: Array<{ drif_id: number; name: string; tier: number; count: number; price: number; }>;
 }
 
 const characters = ref<Character[]>([]);
@@ -212,7 +244,7 @@ const isWholeDungeonSelected = ref<boolean>(true);
 const stats = ref<StashStats | null>(null);
 const loading = ref<boolean>(false);
 
-// Dynamiczne funkcje pomocnicze do obliczeń (Nowość!)
+// Funkcje pomocnicze do obliczeń
 const calcAvg = (totalValue: number): string => {
   if (!stats.value || stats.value.general.total_kills === 0) return '0.00';
   return (totalValue / stats.value.general.total_kills).toFixed(2);
@@ -221,6 +253,18 @@ const calcAvg = (totalValue: number): string => {
 const calcChance = (count: number): string => {
   if (!stats.value || stats.value.general.total_kills === 0) return '0.00';
   return ((count / stats.value.general.total_kills) * 100).toFixed(2);
+};
+
+// Nowe funkcje formatujące przelicznik na złoto
+const formatGoldValue = (amount: number, price: number): string => {
+  const total = amount * price;
+  return total.toLocaleString() + ' gold';
+};
+
+const formatGoldAvg = (amount: number, price: number): string => {
+  if (!stats.value || stats.value.general.total_kills === 0) return '0';
+  const avgGold = (amount * price) / stats.value.general.total_kills;
+  return Math.round(avgGold).toLocaleString();
 };
 
 const activeCharacter = computed(() => characters.value.find(c => c.id === selectedCharacterId.value) || null);

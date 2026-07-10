@@ -46,6 +46,11 @@ const router = createRouter({
       path: '/stash',
       name: 'stash',
       component: () => import('../views/StashView.vue')
+    },
+            {
+      path: '/pricelist',
+      name: 'pricelist',
+      component: () => import('../views/PricelistView.vue')
     }
   ],
 })

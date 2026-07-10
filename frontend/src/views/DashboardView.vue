@@ -12,7 +12,14 @@
         <img src="@/assets/horseshoe.jpg" alt="Twój loot" />
         <p>Twój loot</p>
       </div>
+
+      <div class="card">
+        <RouterLink to="/pricelist" class="card-link" />
+        <img src="@/assets/Items.png" alt="Ustal ceny" />
+        <p>Ustal ceny</p>
+      </div>
     </section>
+    
     <!-- <aside></aside> -->
   </main>
 </template>

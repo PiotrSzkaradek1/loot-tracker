@@ -1,4 +1,4 @@
-<div align="center">
+<div>
   <a href="https://github.com/PiotrSzkaradek1/loot-tracker">
     <img src="assets/logo.png" alt="Logo">
   </a>

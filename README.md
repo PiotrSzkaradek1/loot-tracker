@@ -43,9 +43,13 @@ cd loot-tracker
 2. Build and run containers
 
 For running application first time on your machine after cloning always use the build flag (app may need up to few minutes to build):
+```sh
 docker compose up --build
+```
 For every consecutive start use:
+```sh
 docker compose up
+```
 
 3. The application services will map to the following local ports:
 
@@ -56,18 +60,17 @@ docker compose up
 4. Running without docker
 
 - Backend:
-
-- - cd backend
-
-- - npm install
-
-- - npm start
+```sh
+cd backend
+npm install
+npm start
+```
 
 - Frontend
-
-- - npm install
-
-- - npm run dev --host
+```sh
+npm install
+npm run dev --host
+```
 
 5. Notes
 Make sure you have PostgreSQL running and configured if running backend without Docker.

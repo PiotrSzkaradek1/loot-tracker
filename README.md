@@ -1,6 +1,6 @@
 <div>
   <a href="https://github.com/PiotrSzkaradek1/loot-tracker">
-    <img src="assets/Logo.png" alt="Logo" width="513" height="219">
+    <img src="assets/Logo.png" alt="Logo" width="342" height="146">
   </a>
 </div>
 

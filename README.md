@@ -35,17 +35,16 @@ Loot Tracker is a web application for tracking loot drops, characters, and bosse
 ## Running with docker (Recommended)
 
 1. Clone repository.
-- git clone https://github.com/PiotrSzkaradek1/loot-tracker
-- cd loot-tracker
+```sh
+git clone https://github.com/PiotrSzkaradek1/loot-tracker
+cd loot-tracker
+```
 
 2. Build and run containers
 
 For running application first time on your machine after cloning always use the build flag (app may need up to few minutes to build):
-
 docker compose up --build
-
 For every consecutive start use:
-
 docker compose up
 
 3. The application services will map to the following local ports:
@@ -68,11 +67,9 @@ docker compose up
 
 - - npm install
 
-- - npm run dev -- --host
+- - npm run dev --host
 
 5. Notes
 Make sure you have PostgreSQL running and configured if running backend without Docker.
-
 JWT tokens are required for authentication.
-
 Frontend communicates directly with backend API, make sure backend is running first.

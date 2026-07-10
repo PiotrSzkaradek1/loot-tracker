@@ -11,11 +11,10 @@ Loot Tracker is a web application for tracking loot drops, characters, and bosse
 ## Features
 
 - User registration and authentication (JWT)
-- Add and manage characters, which represent players in-game characters
-- Select bosses and difficulty levels, each represents 
+- Add and manage characters within the application, which represent players in-game characters
+- Select bosses and difficulty levels, based on your choice of dungeon in the game
 - Record loot drops (items, gold, rars, synergetics, drifs, etc.)
 - View loot statistics and summaries per character and boss
-- User friendly UI with modern design
 
 ## Technologies
 
@@ -41,35 +40,35 @@ Loot Tracker is a web application for tracking loot drops, characters, and bosse
 
 2. Build and run containers
 
-For running application first time on your machine after cloning always use this (app may need up to few minutes to build):
+For running application first time on your machine after cloning always use the build flag (app may need up to few minutes to build):
 
 docker compose up --build
 
-For every next start use:
+For every consecutive start use:
 
 docker compose up
 
-3. App will be available at ports:
+3. The application services will map to the following local ports:
 
-- Frontend: http://localhost:5137
+- Frontend Interface: http://localhost:5137
 
-- Backend: http://localhost:3000
+- Backend REST API: http://localhost:3000
 
 4. Running without docker
 
-Backend:
+- Backend:
 
-cd backend
+- - cd backend
 
-npm install
+- - npm install
 
-npm start
+- - npm start
 
-Frontend
+- Frontend
 
-npm install
+- - npm install
 
-npm run dev -- --host
+- - npm run dev -- --host
 
 5. Notes
 Make sure you have PostgreSQL running and configured if running backend without Docker.

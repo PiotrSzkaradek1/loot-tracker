@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/PiotrSzkaradek1/loot-tracker">
     <img src="assets/logo.png" alt="Logo">
   </a>
 </div>

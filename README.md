@@ -13,11 +13,18 @@ Loot Tracker is a web application for tracking loot drops, characters, and bosse
 
 ## Technologies
 
-* [![Vue][Vue.js]][Vue-url]
-* [![Node][Node.js]][Node-url]
-* [![PostgreSQL][PostgreSQL]][PostgreSQL-url]
-* [![Docker][Docker]][Docker-url]
-* [![JWT][JWT]][JWT-url]
+- **Node.js (Express.js)**
+- 
+
+- Node.js (express) - fast, modern backend using JS, perfect for building APIs
+- PostgreSQL database - reliable relational database that allows for structured storage of data using related tables
+- JWT - simple authentication mechanism
+
+- React.js - modern frontend library for building interactive UIs with component based structure
+- CSS - 
+
+- Docker & Docker Compose - easy enviroment management and running app on different systems
+- Git - version control system for tracking changes and managing project history
 
 ## Requirements
 

@@ -16,6 +16,8 @@ Loot Tracker is a web application for tracking loot drops, characters, and bosse
 - Record loot drops (items, gold, rars, synergetics, drifs, etc.)
 - View loot statistics and summaries per character and boss
 
+## User interface preview
+
 ## Technologies
 
 - **Node.js (Express.js)**
@@ -68,6 +70,7 @@ npm start
 
 - Frontend
 ```sh
+cd frontend
 npm install
 npm run dev --host
 ```

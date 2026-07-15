@@ -1,6 +1,6 @@
 <div>
   <a href="https://github.com/PiotrSzkaradek1/loot-tracker">
-    <img src="assets/Logo.png" alt="Logo" width="173" height="71">
+    <img src="assets/logo.png" alt="Logo" width="173" height="71">
   </a>
 </div>
 
@@ -17,6 +17,26 @@ Loot Tracker is a web application for tracking loot drops, characters, and bosse
 - View loot statistics and summaries per character and boss
 
 ## User interface preview
+
+Navigation board
+<a href="https://github.com/PiotrSzkaradek1/loot-tracker">
+  <img src="assets/Dashboard.png" alt="Dashboard">
+</a>
+
+Loot saving panel 
+<a href="https://github.com/PiotrSzkaradek1/loot-tracker">
+  <img src="assets/Looting.png" alt="Looting">
+</a>
+
+Stash summary
+<a href="https://github.com/PiotrSzkaradek1/loot-tracker">
+  <img src="assets/Stash.png" alt="Stash">
+</a>
+
+Price setting panel
+<a href="https://github.com/PiotrSzkaradek1/loot-tracker">
+  <img src="assets/PriceList.png" alt="PriceList">
+</a>
 
 ## Technologies
 
@@ -68,7 +88,7 @@ npm install
 npm start
 ```
 
-- Frontend
+- Frontend:
 ```sh
 cd frontend
 npm install

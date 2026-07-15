@@ -14,3 +14,7 @@ Thumbs.db
 
 # Docker
 *.log
+
+# Temporary directories
+/temp/
+/frontend_react_backup/

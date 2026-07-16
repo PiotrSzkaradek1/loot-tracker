@@ -99,3 +99,13 @@ npm run dev --host
 Make sure you have PostgreSQL running and configured if running backend without Docker.
 JWT tokens are required for authentication.
 Frontend communicates directly with backend API, make sure backend is running first.
+
+## Roadmap
+
+- [x] Add records tracking module
+- [x] Add records reviewing and data aggregating module
+- [x] Add personal prices setting module
+- [ ] Add CSV/JSON records export options
+- [ ] Multi-language Support
+    - [x] Polish
+    - [ ] English

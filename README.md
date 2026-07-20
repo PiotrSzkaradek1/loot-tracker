@@ -105,6 +105,7 @@ Frontend communicates directly with backend API, make sure backend is running fi
 - [x] Add records tracking module
 - [x] Add records reviewing and data aggregating module
 - [x] Add personal prices setting module
+- [ ] Add integration tests
 - [ ] Add CSV/JSON records export options
 - [ ] Multi-language Support
     - [x] Polish
